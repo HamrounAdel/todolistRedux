@@ -1,0 +1,13 @@
+.logo{
+    height: 35px;
+    width: 30px;
+}
+.element{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    width: 300px;
+}
+.checked {
+    text-decoration: line-through;
+  }
