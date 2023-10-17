@@ -6,16 +6,19 @@ export const todoSlice=createSlice({
         {id:uuidv4(),
          text:"first todo  list",
          checked:false},
+         
         {id:uuidv4(),
          text:"second todo  list",
          checked:false},
+         
         {id:uuidv4(),
          text:"third todo  list",
          checked:false}
         
     ],
     reducers:{
-        //ajout todo
+
+        //partie ajout todo
         add:(state,action)=>{
            const newtodo={id:uuidv4(),
                           text:action.payload,
@@ -24,15 +27,34 @@ export const todoSlice=createSlice({
            state.push(newtodo)
            
         },
-        // delete todo
+
+        //partie  delete todo
         delet:(state,action)=>{
            return  state.filter((el)=>el.id !==action.payload)
         },
 
-        //partie checked todo
-        check:(state,action)=>{
+
+        //partie check todo
+        handelcheck:(state,action)=>{
            return  state.map((el)=> el.id===action.payload ?{...el,checked: !el.checked}  : el)
         },
+
+
+        //partie filter todo
+        handelfilter: (state, action) => {
+            const choix = action.payload; 
+            let res;
+            if ( choix=== "all") {
+                res = state.map((el)=>el);
+            } else if (choix === "done") {
+                res = state.filter(el => el.checked === true).map((el)=>el);
+            } else if (choix === "notyet") {
+                res = state.filter(el => el.checked === false).map((el)=>el);
+            }
+          
+            return res;
+          },
+          
 
         // partie edit todo
         edit:(state,action)=>{
@@ -42,5 +64,5 @@ export const todoSlice=createSlice({
         
     }
 })
-export const  {edit,add,check,delet}=todoSlice.actions;
+export const  {edit,add,handelcheck,delet,handelfilter}=todoSlice.actions;
 export default todoSlice.reducer
